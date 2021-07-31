@@ -119,12 +119,10 @@ async function getPropertyTypes(req, res) {
         let publications = await Publication.find({}).select('title');
         publications = publications.map((element, index) => {
             const title = element.title;
-            return { id: index + 1, title }
+            return { id: index + 1, name:title}
         })
 
-        return res.status(200).send({
-            ptypes: publications
-        })
+        return res.status(200).send(publications)
 
     } catch (error) {
         console.log(error)
