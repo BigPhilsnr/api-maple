@@ -1,5 +1,6 @@
 'use strict';
 
+const publication = require('../models/publication');
 var Publication = require('../models/publication');
 
 
@@ -37,16 +38,16 @@ async function updatePublication(req, res) {
 
         const id = req.body._id;
         const params = req.body;
-        const update= {}
-        
-        update.title =params.title;
+        const update = {}
+
+        update.title = params.title;
         update.content = params.content;
-        if(params.file){
+        if (params.file) {
             update.file = params.file;
         }
 
         update.user = req.user.userId;
-       
+
 
         if (req.files && req.files.file) {
             if (Array.isArray(req.files.file)) {
@@ -59,7 +60,7 @@ async function updatePublication(req, res) {
         console.log("update")
 
         console.log(update)
-      
+
         let publication = await Publication.findByIdAndUpdate({
             _id: id
         }, update);
@@ -112,6 +113,29 @@ async function getPublication(req, res) {
 }
 
 
+async function getPropertyTypes(req, res) {
+    try {
+
+        let publications = await Publication.find({}).select('title');
+        publications = publications.map((element, index) => {
+            const title = element.title;
+            return { id: index + 1, title }
+        })
+
+        return res.status(200).send({
+            ptypes: publications
+        })
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send({
+            error: error
+        });
+    }
+
+}
+
+
 async function deletePublication(req, res) {
     try {
         const result = await Publication.findById(req.query._id).remove()
@@ -135,4 +159,5 @@ module.exports = {
     getPublication,
     deletePublication,
     updatePublication,
+    getPropertyTypes,
 };
