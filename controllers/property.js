@@ -666,12 +666,11 @@ async function filterProperty(req, res) {
         delete query.page;
         delete query.limit;
 
-        let propertys = await Property.paginate(query, {
+        const propertys = await Property.paginate(query, {
             limit: limit,
             page: page
         });
 
-       
         //  const propertys = await Property.find(query);
         // console.log(propertys)
 
