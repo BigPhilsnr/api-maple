@@ -671,7 +671,7 @@ async function filterProperty(req, res) {
             page: page
         });
 
-        propertys = propertys.reverse()
+       
         //  const propertys = await Property.find(query);
         // console.log(propertys)
 
