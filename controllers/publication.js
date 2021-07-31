@@ -121,7 +121,6 @@ async function getPropertyTypes(req, res) {
             const title = element.title;
             return { id: index + 1, name:title}
         })
-
         return res.status(200).send(publications)
 
     } catch (error) {
