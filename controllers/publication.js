@@ -97,7 +97,6 @@ async function getPublication(req, res) {
         const publications = await Publication.paginate(query, {
             limit: limit,
             page: page,
-            populate: 'user'
         });
         return res.status(200).send({
             publications: publications

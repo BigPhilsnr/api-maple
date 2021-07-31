@@ -27,6 +27,7 @@ const tenantRoute = require('./routes/tenant')
 const pgroupRoute = require('./routes/pgroup')
 const billRoute = require('./routes/bill')
 const ownerRoute = require('./routes/owner')
+const propertytypeRoute = require('./routes/propertytype')
 const morgan = require('morgan')
 var cors = require('cors');
 const exec = require('child_process').exec;
@@ -93,6 +94,7 @@ app.use('/api/',feedbackRoute);
 app.use('/api',pgroupRoute)
 app.use('/api', billRoute);
 app.use('/api', ownerRoute);
+app.use('/api/', propertytypeRoute)
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/index.html'));
 });

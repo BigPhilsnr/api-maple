@@ -86,6 +86,13 @@ async function createProperty(req, res) {
             }
         }
 
+        if (property.category) {
+            if (!Array.isArray(property.category)) {
+                property.features = [property.category]
+            }
+        }
+
+
         if (!property.gallery) {
             property.gallery = [];
         }
@@ -606,6 +613,22 @@ const filterPropertyData = function (params, page, perPage) {
             });
             if (arr.length > 0) {
                 filter.features = {
+                    $in: arr
+                };
+            }
+
+        }
+
+
+        if (params.category) {
+            const arr = [];
+            params.category.forEach(feature => {
+                if (feature.selected) {
+                    arr.push(feature.name);
+                }
+            });
+            if (arr.length > 0) {
+                filter.category = {
                     $in: arr
                 };
             }
